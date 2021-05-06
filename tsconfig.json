@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "declaration": false,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "removeComments": false,
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "rootDir": "./src",
+    "sourceMap": true,
+    "target": "es6",
+    "types": ["node"]
+  },
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "dist/**/*"
+  ],
+  "include": [
+    "src/**/*"
+  ]
+}

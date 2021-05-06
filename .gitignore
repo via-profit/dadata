@@ -1,0 +1,20 @@
+/node_modules/
+/.env
+
+# jest
+/coverage
+
+# webpack temporary dir
+/build
+
+# dist
+/dist
+
+/package.tgz
+/package-*.tgz
+
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
