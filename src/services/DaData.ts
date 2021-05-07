@@ -1,8 +1,8 @@
-import { AddressLookupParams, ReverseGeocodingParams, AddressResponse, ReverseGeocodingResponse } from '../@types/address';
-import { EntityLookupParams, BankLookupParams, EntityResponse, BankResponse } from '../@types/entity';
-import { EmailLookupParams, EmailResponse } from '../@types/email';
-import { NameLookupParams, NameResponse } from '../@types/names';
-import { ResolveIPParams, ResolveIPResponse } from '../@types/ip';
+import type { AddressLookupParams, ReverseGeocodingParams, AddressResponse, ReverseGeocodingResponse } from '../@types/address';
+import type { EntityLookupParams, BankLookupParams, EntityResponse, BankResponse } from '../@types/entity';
+import type { EmailLookupParams, EmailResponse } from '../@types/email';
+import type { NameLookupParams, NameResponse } from '../@types/names';
+import type { ResolveIPParams, ResolveIPResponse } from '../@types/ip';
 import RequestHelper from './RequestHelper';
 
 export type DaDataProps = {
@@ -135,13 +135,13 @@ class DaData {
 
   public async resolveIPAddress(params: ResolveIPParams): Promise<ResolveIPResponse> {
     const { apiKey, apiSecret } = this.props;
-    const { ip, language } = params;
+    const { query, language } = params;
     const response = await RequestHelper.request<ResolveIPResponse>({
       apiMethod: 'iplocate/address',
       apiKey,
       apiSecret,
       body: {
-        ip,
+        ip: query,
         language,
       },
     });

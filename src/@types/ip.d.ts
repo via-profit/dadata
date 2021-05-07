@@ -4,7 +4,7 @@ export type ResolveIPParams = {
   /**
    * IP address (`ipv4` or `ipv6`)
    */
-  ip: string;
+  query: string;
   /**
    * Language to return the result (ru / en)
    */

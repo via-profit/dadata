@@ -137,25 +137,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/body-parser@npm:*":
-  version: 1.19.0
-  resolution: "@types/body-parser@npm:1.19.0"
-  dependencies:
-    "@types/connect": "*"
-    "@types/node": "*"
-  checksum: 4576f3fde5980c1219cadbc7c523bdb1cefc3713300e18bf47ff37bb9b8176342a1dc7519008311fd8fc11413cf188a83931b9b59051aa1c2f095c1e10459369
-  languageName: node
-  linkType: hard
-
-"@types/connect@npm:*":
-  version: 3.4.34
-  resolution: "@types/connect@npm:3.4.34"
-  dependencies:
-    "@types/node": "*"
-  checksum: 6f712a0408ed119a42037bcbc38c12e053d3ffe11337221a3966c9e29a21c8455e331fe2116c426361c0b2c0e44cb3fb1f83594326e42ba34ce4723d726b7d30
-  languageName: node
-  linkType: hard
-
 "@types/eslint-scope@npm:^3.7.0":
   version: 3.7.0
   resolution: "@types/eslint-scope@npm:3.7.0"
@@ -180,29 +161,6 @@ __metadata:
   version: 0.0.47
   resolution: "@types/estree@npm:0.0.47"
   checksum: 28cba548c7b61855f4ff0c20146512e71fb578253e3cb24baf1acf660c626a8a271f99848e8a8c4e0e87f177cfce28e8d1fcecb65a4aad4a92ba48fd73179289
-  languageName: node
-  linkType: hard
-
-"@types/express-serve-static-core@npm:^4.17.18":
-  version: 4.17.19
-  resolution: "@types/express-serve-static-core@npm:4.17.19"
-  dependencies:
-    "@types/node": "*"
-    "@types/qs": "*"
-    "@types/range-parser": "*"
-  checksum: b6c8c357c5d093303c681616b7a80d6a044b47c4161a3459c65e451137832b29a485a8f8708414205f427dade6b4ff5ef799d51715d12f92da3468cf41a2cf06
-  languageName: node
-  linkType: hard
-
-"@types/express@npm:^4.17.9":
-  version: 4.17.11
-  resolution: "@types/express@npm:4.17.11"
-  dependencies:
-    "@types/body-parser": "*"
-    "@types/express-serve-static-core": ^4.17.18
-    "@types/qs": "*"
-    "@types/serve-static": "*"
-  checksum: 2818120a0fd8b7982215864929cdc6cd14942dd44849f93054fe2a90b4233dff67aadc34c73b5937922a02c688b0263d00a4807aa2e59307ac859a1458d73669
   languageName: node
   linkType: hard
 
@@ -239,13 +197,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mime@npm:^1":
-  version: 1.3.2
-  resolution: "@types/mime@npm:1.3.2"
-  checksum: c354bc135628c2f4ab64801ca3867c3acbd4050611579c4c9f5bdfecfb70db71bb8540bf8611b4319f5ef44139c5f7c5af81254369add5ed59e7e02ce929b96f
-  languageName: node
-  linkType: hard
-
 "@types/minimatch@npm:*":
   version: 3.0.4
   resolution: "@types/minimatch@npm:3.0.4"
@@ -276,36 +227,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/qs@npm:*":
-  version: 6.9.6
-  resolution: "@types/qs@npm:6.9.6"
-  checksum: a5f3c4f6ad6de2692e710302f5f82fe8db3ec0de1a75ada02a432f75f64025a6e38d28fcc4ed146d3145017e1312cc5cb3d81a0f41a798ec0463b5f47f017963
-  languageName: node
-  linkType: hard
-
-"@types/range-parser@npm:*":
-  version: 1.2.3
-  resolution: "@types/range-parser@npm:1.2.3"
-  checksum: 092fabae0ecbd728d3e4debc938cd043e97cb9f210cfec1c56ff6065c6e91666f376eb586591825d6757a058fd1a1dc4831d34e04ecfbb0800f35b8d86d38635
-  languageName: node
-  linkType: hard
-
 "@types/responselike@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/responselike@npm:1.0.0"
   dependencies:
     "@types/node": "*"
   checksum: e6e6613c800aeda63e2331e753e8d21df1a2c9aa7a4bc71ed792a848e4811fc96e609759089355314a2318c76eff1f161499cd242044838ab1e6f56e463ebb9c
-  languageName: node
-  linkType: hard
-
-"@types/serve-static@npm:*":
-  version: 1.13.9
-  resolution: "@types/serve-static@npm:1.13.9"
-  dependencies:
-    "@types/mime": ^1
-    "@types/node": "*"
-  checksum: f261127514057b5c038d76259128d7b765dd92bfeaf769d05b8ddf5f254d066ce6142a935e2fc707bb3009d6544a979591852f0d135d0ed4d0c56db08738df6b
   languageName: node
   linkType: hard
 
@@ -508,7 +435,6 @@ __metadata:
   resolution: "@via-profit/dadata@workspace:."
   dependencies:
     "@types/bluebird": ^3.5.29
-    "@types/express": ^4.17.9
     "@types/node": ^14.14.16
     "@types/nodemon": ^1.19.0
     "@types/validator": ^12.0.1
@@ -519,6 +445,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.6.1
     "@via-profit-services/eslint-config": ^0.1.13
     cross-env: ^6.0.3
+    dotenv: ^9.0.0
     eslint: ^7.12.1
     eslint-config-prettier: ^6.15.0
     eslint-config-standard: ^16.0.1
@@ -531,7 +458,6 @@ __metadata:
     eslint-plugin-promise: ^4.2.1
     eslint-plugin-react: ^7.21.5
     eslint-plugin-standard: ^4.0.2
-    express: ^4.17.1
     nodemon: ^2.0.6
     nodemon-webpack-plugin: ^4.3.2
     prettier: ^2.1.2
@@ -2345,6 +2271,13 @@ __metadata:
   dependencies:
     is-obj: ^2.0.0
   checksum: 76e6693d8803eeff9cb920988446bf223cf1f6e5b1c0c2fe07a66906392134931a481b11e3c0bd852c5cfc97fad65258bcb4359169ad1d8d624cb3f56932be98
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "dotenv@npm:9.0.0"
+  checksum: 8111fb99a12a8da9fedc90d855d734bbf026f3257d67b611b2517d393b027ca5774c1f9dd5aa0887f339f4e7c711f99bdd8bc82fa076e572f3eb6000b2c09343
   languageName: node
   linkType: hard
 
