@@ -1,95 +1,95 @@
 import http from 'http';
-import express from 'express';
+import dotenv from 'dotenv';
 
-import { DaDataAddress, DaDataEntity, DaDataEmail, DaDataName } from '../index';
+import DaData from '../index';
 
-const port = 8080;
-const hostname = 'localhost';
-const creditionals = {
-  apiKey: '81c55d81e9f6d090778cc7d8d10721add4cd9f73',
-  apiSecret: 'f7f84da4223c568dad2108edd7312a00884bcb3a',
-};
+dotenv.config();
 
+/**
+ * Routes list
+ */
+enum Route {
+  Address = '/address',
+  ReverseGeo = '/reverse-geo',
+  Entity = '/entity',
+  Bank = '/bank',
+  IP = '/ip',
+  Email = '/email',
+  Name = '/name',
+}
 
 (async () => {
-  const app = express();
-  const server = http.createServer(app);
+  const server = http.createServer(async (req, res) => {
+    const { url } = req;
 
-  app.use('/address', async (_req, res) => {
+    /**
+     * Response function
+     */
+    const sendJSON = (
+      data: Record<string, any> | any[] | string | number | boolean,
+      statusCode?: number,
+    ) => {
+      res.statusCode = statusCode || 200;
+      res.setHeader('Content-Type', 'application/json; charset=UTF-8');
+      res.write(JSON.stringify(data), 'utf8');
+      res.end();
+    }
 
-    const address = new DaDataAddress(creditionals);
-    const response = await address.addressLookup({
-      query: 'Екатеринбург, Мира 28',
+    // Init DaData
+    const dadata = new DaData({
+      apiKey: process.env.API_KEY,
+      apiSecret: process.env.API_SECRET,
     });
 
-    res.send(response);
+    // Simple routing
+    switch (url) {
+      case Route.Address:
+        return sendJSON((await dadata.addressLookup({
+          query: 'Екатеринбург, Мира 28',
+        })));
+
+      case Route.ReverseGeo:
+        return sendJSON((await dadata.reverseGeocoding({
+          longitude: '60.616195',
+          latitude: '56.840419',
+        })));
+
+      case Route.Entity:
+        return sendJSON((await dadata.entityLookup({
+          query: 'тлк трансфер',
+          locations: ['66'],
+        })));
+
+      case Route.Bank:
+        return sendJSON((await dadata.bankLookup({
+          query: 'точка',
+        })));
+
+      case Route.IP:
+        return sendJSON((await dadata.resolveIPAddress({
+          query: '176.226.150.69',
+        })));
+
+      case Route.Email:
+        return sendJSON((await dadata.emailLookup({
+          query: 'example@',
+        })));
+
+      case Route.Name:
+        return sendJSON((await dadata.nameLookup({
+          query: 'Иванов Петр Олегович',
+        })));
+
+      default:
+        return sendJSON({
+          message:'Route not found',
+          possibleRoutes: Object.entries(Route).map(([_key, route]) => route),
+        }, 404);
+    }
   });
 
-  app.use('/reverse-geo', async (_req, res) => {
-
-    const address = new DaDataAddress(creditionals);
-    const response = await address.reverseGeocoding({
-      longitude: '60.616195',
-      latitude: '56.840419',
-    });
-
-    res.send(response);
-  });
-
-  app.use('/ip', async (_req, res) => {
-
-    const address = new DaDataAddress(creditionals);
-    const response = await address.resolveIPAddress({
-      ip: '176.226.150.69',
-    });
-
-    res.send(response);
-  });
-
-  app.use('/entity', async (_req, res) => {
-
-    const address = new DaDataEntity(creditionals);
-    const response = await address.entityLookup({
-      query: 'тлк трансфер',
-      locations: ['66'],
-    });
-
-    res.send(response);
-  });
-
-  app.use('/bank', async (_req, res) => {
-
-    const address = new DaDataEntity(creditionals);
-    const response = await address.bankLookup({
-      query: 'точка',
-    });
-
-    res.send(response);
-  });
-
-  app.use('/email', async (_req, res) => {
-
-    const address = new DaDataEmail(creditionals);
-    const response = await address.emailLookup({
-      query: 'delhs@g',
-    });
-
-    res.send(response);
-  });
-
-  app.use('/name', async (_req, res) => {
-
-    const address = new DaDataName(creditionals);
-    const response = await address.nameLookup({
-      query: 'новосад василий',
-    });
-
-    res.send(response);
-  });
-
-
-  server.listen(port, hostname, () => {
+  server.listen(Number(process.env.SERVER_PORT), process.env.SERVER_HOSTNAME, () => {
     // eslint-disable-next-line no-console
-    console.log(`Server started at http://${hostname}:${port}`);
+    console.log(`Server started at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
   });
 })();

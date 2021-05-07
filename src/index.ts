@@ -1,11 +1,3 @@
-import DaDataAddress from './services/DaDataAddress';
-import DaDataEntity from './services/DaDataEntity';
-import DaDataEmail from './services/DaDataEmail';
-import DaDataName from './services/DaDataName';
+import DaData from './services/DaData';
 
-export {
-  DaDataAddress,
-  DaDataEntity,
-  DaDataEmail,
-  DaDataName,
-};
+export default DaData;
