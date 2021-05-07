@@ -1,8 +1,15 @@
 import https, { RequestOptions } from 'https';
-import { IncomingMessage } from 'http';
-import { ResponseError, RequestBody } from '@via-profit/dadata';
+import { IncomingMessage, OutgoingHttpHeaders } from 'http';
 
-type APIMrthod =
+type RequestBody = Record<string, any> | (string | Record<string, any>)[];
+
+type ResponseError = {
+  family: 'CLIENT_ERROR';
+  reason: string;
+  message: string;
+}
+
+type APIMethod =
   | 'geolocate/address'
   | 'iplocate/address'
   | 'suggest/address'
@@ -10,6 +17,13 @@ type APIMrthod =
   | 'suggest/bank'
   | 'suggest/email'
   | 'clean/name';
+
+type RequestProps = {
+  apiKey?: string,
+  apiSecret?: string,
+  body: RequestBody,
+  apiMethod: APIMethod,
+};
 
 class RequestHelper {
 
@@ -19,32 +33,46 @@ class RequestHelper {
       && typeof payload?.reason === 'string';
   }
 
-  public static request<T>(props: {
-    apiKey: string,
-    apiSecret: string,
-    body: RequestBody,
-    apiMethod: APIMrthod,
-  }): Promise<T> {
+  public static resolveApi(apiMethod: APIMethod){
+    switch (apiMethod) {
+      case 'clean/name':
+        return {
+          host: 'cleaner.dadata.ru',
+          path: '/api/v1/clean/name',
+        }
+
+        default:
+        return {
+          host: 'suggestions.dadata.ru',
+          path: `/suggestions/api/4_1/rs/${apiMethod}`,
+        }
+    }
+  }
+
+  public static request<T>(props: RequestProps): Promise<T> {
     const { apiKey, apiSecret, apiMethod, body } = props;
-    const host = apiMethod === 'clean/name'
-      ? 'cleaner.dadata.ru'
-      : 'suggestions.dadata.ru';
-    const path = apiMethod === 'clean/name'
-      ? '/api/v1/clean/name'
-      : `/suggestions/api/4_1/rs/${apiMethod}`;
+    const { host, path } = this.resolveApi(apiMethod);
+
+    const headers: OutgoingHttpHeaders = {
+      Accept: 'application/json',
+      'User-Agent': 'openid-client',
+      'Content-Type': 'application/json',
+    };
+
+    if (typeof apiKey !== 'undefined') {
+      headers.Authorization = `Token ${apiKey}`;
+    }
+
+    if (typeof apiSecret !== 'undefined') {
+      headers['X-Secret'] = apiSecret;
+    }
 
     const requestParams: RequestOptions = {
       host,
       path,
       protocol: 'https:',
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-         'User-Agent': 'openid-client',
-        'Content-Type': 'application/json',
-        'X-Secret': apiSecret,
-        Authorization: `Token ${apiKey}`,
-      },
+      headers,
     };
 
     return new Promise((resolve, reject) => {

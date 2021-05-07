@@ -1,7 +1,7 @@
 import http from 'http';
 import express from 'express';
 
-import { DaDataAddress, DaDataEntity, DaDataEmail, DaDataName } from '../index';
+import DaData from '../index';
 
 const port = 8080;
 const hostname = 'localhost';
@@ -15,10 +15,11 @@ const creditionals = {
   const app = express();
   const server = http.createServer(app);
 
+  const dadata = new DaData(creditionals);
+
   app.use('/address', async (_req, res) => {
 
-    const address = new DaDataAddress(creditionals);
-    const response = await address.addressLookup({
+    const response = await dadata.addressLookup({
       query: 'Екатеринбург, Мира 28',
     });
 
@@ -27,8 +28,7 @@ const creditionals = {
 
   app.use('/reverse-geo', async (_req, res) => {
 
-    const address = new DaDataAddress(creditionals);
-    const response = await address.reverseGeocoding({
+    const response = await dadata.reverseGeocoding({
       longitude: '60.616195',
       latitude: '56.840419',
     });
@@ -38,8 +38,7 @@ const creditionals = {
 
   app.use('/ip', async (_req, res) => {
 
-    const address = new DaDataAddress(creditionals);
-    const response = await address.resolveIPAddress({
+    const response = await dadata.resolveIPAddress({
       ip: '176.226.150.69',
     });
 
@@ -48,8 +47,7 @@ const creditionals = {
 
   app.use('/entity', async (_req, res) => {
 
-    const address = new DaDataEntity(creditionals);
-    const response = await address.entityLookup({
+    const response = await dadata.entityLookup({
       query: 'тлк трансфер',
       locations: ['66'],
     });
@@ -59,8 +57,7 @@ const creditionals = {
 
   app.use('/bank', async (_req, res) => {
 
-    const address = new DaDataEntity(creditionals);
-    const response = await address.bankLookup({
+    const response = await dadata.bankLookup({
       query: 'точка',
     });
 
@@ -69,8 +66,7 @@ const creditionals = {
 
   app.use('/email', async (_req, res) => {
 
-    const address = new DaDataEmail(creditionals);
-    const response = await address.emailLookup({
+    const response = await dadata.emailLookup({
       query: 'delhs@g',
     });
 
@@ -79,8 +75,7 @@ const creditionals = {
 
   app.use('/name', async (_req, res) => {
 
-    const address = new DaDataName(creditionals);
-    const response = await address.nameLookup({
+    const response = await dadata.nameLookup({
       query: 'новосад василий',
     });
 

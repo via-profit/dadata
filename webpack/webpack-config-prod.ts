@@ -43,10 +43,13 @@ Contact    ${packageInfo.support}
         });
 
         compiler.hooks.afterEmit.tapAsync('WebpackAfterBuild', (_, callback) => {
-          fs.copyFileSync(
-            path.resolve(__dirname, '../src/@types/index.d.ts'),
-            path.resolve(__dirname, '../dist/index.d.ts'),
-          );
+          const files = fs.readdirSync(path.join(__dirname, '../src/@types'));
+          files.forEach((filename) => {
+            fs.copyFileSync(
+              path.resolve(__dirname, `../src/@types/${filename}`),
+              path.resolve(__dirname, `../dist/${filename}`),
+            );
+          });
           callback();
         });
 
