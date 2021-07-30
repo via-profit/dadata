@@ -6,7 +6,7 @@
 
 ![npm (scoped)](https://img.shields.io/npm/v/@via-profit/dadata?color=blue)
 ![NPM](https://img.shields.io/npm/l/@via-profit/dadata?color=blue)
-![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@via-profit/dadata?color=green)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@via-profit/dadata?color=blue)
 
 ## Table of Contents
  
