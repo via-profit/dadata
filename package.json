@@ -1,12 +1,11 @@
 {
     "name": "@via-profit/dadata",
     "support": "https://via-profit.ru",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Via Profit DaData API",
     "main": "dist/index.js",
     "engines": {
-        "node": ">= 14.0.0",
-        "yarn": ">= 2.4.0"
+        "node": ">= 14.0.0"
     },
     "keywords": [
         "dadata",
