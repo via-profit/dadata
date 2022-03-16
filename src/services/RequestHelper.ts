@@ -7,7 +7,7 @@ type ResponseError = {
   family: 'CLIENT_ERROR';
   reason: string;
   message: string;
-}
+};
 
 type APIMethod =
   | 'geolocate/address'
@@ -19,33 +19,34 @@ type APIMethod =
   | 'clean/name';
 
 type RequestProps = {
-  apiKey?: string,
-  apiSecret?: string,
-  body: RequestBody,
-  apiMethod: APIMethod,
+  apiKey?: string;
+  apiSecret?: string;
+  body: RequestBody;
+  apiMethod: APIMethod;
 };
 
 class RequestHelper {
-
   private static isResponseError(payload: any): payload is ResponseError {
-    return typeof payload?.family === 'string'
-      && typeof payload?.message === 'string'
-      && typeof payload?.reason === 'string';
+    return (
+      typeof payload?.family === 'string' &&
+      typeof payload?.message === 'string' &&
+      typeof payload?.reason === 'string'
+    );
   }
 
-  public static resolveApi(apiMethod: APIMethod){
+  public static resolveApi(apiMethod: APIMethod) {
     switch (apiMethod) {
       case 'clean/name':
         return {
           host: 'cleaner.dadata.ru',
           path: '/api/v1/clean/name',
-        }
+        };
 
-        default:
+      default:
         return {
           host: 'suggestions.dadata.ru',
           path: `/suggestions/api/4_1/rs/${apiMethod}`,
-        }
+        };
     }
   }
 
@@ -76,23 +77,21 @@ class RequestHelper {
     };
 
     return new Promise((resolve, reject) => {
-      const requestCallback: (e: IncomingMessage) => void = (response) => {
+      const requestCallback: (e: IncomingMessage) => void = response => {
         response.setEncoding('utf8');
 
         let responseData = '';
 
-        response.on('data', (chunk) => {
+        response.on('data', chunk => {
           responseData += chunk.toString();
-        })
+        });
 
         response.on('end', () => {
           try {
             const data: ResponseError | T = JSON.parse(responseData);
 
             if (this.isResponseError(data)) {
-              reject(
-                `Request error. «${data.message}»`,
-              );
+              reject(`Request error. «${data.message}»`);
             }
 
             resolve(data as T);
@@ -100,7 +99,7 @@ class RequestHelper {
             reject(err);
           }
         });
-      }
+      };
 
       const request = https.request(requestParams, requestCallback);
       request.write(JSON.stringify(body));

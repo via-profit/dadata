@@ -31,9 +31,8 @@ Contact    ${packageInfo.support}
     {
       apply: (compiler: Compiler) => {
         compiler.hooks.beforeRun.tapAsync('WebpackBeforeBuild', (_, callback) => {
-
           if (fs.existsSync(path.join(__dirname, '../dist/'))) {
-            fs.rmdirSync(path.join(__dirname, '../dist/'), { recursive: true })
+            fs.rmdirSync(path.join(__dirname, '../dist/'), { recursive: true });
           }
 
           callback();
@@ -41,7 +40,7 @@ Contact    ${packageInfo.support}
 
         compiler.hooks.afterEmit.tapAsync('WebpackAfterBuild', (_, callback) => {
           const files = fs.readdirSync(path.join(__dirname, '../src/@types'));
-          files.forEach((filename) => {
+          files.forEach(filename => {
             if (filename === 'env.d.ts') {
               return;
             }
@@ -53,7 +52,6 @@ Contact    ${packageInfo.support}
           });
           callback();
         });
-
       },
     },
     new BundleAnalyzerPlugin({
