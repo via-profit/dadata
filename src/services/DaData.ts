@@ -1,5 +1,15 @@
-import type { AddressLookupParams, ReverseGeocodingParams, AddressResponse, ReverseGeocodingResponse } from '../@types/address';
-import type { EntityLookupParams, BankLookupParams, EntityResponse, BankResponse } from '../@types/entity';
+import type {
+  AddressLookupParams,
+  ReverseGeocodingParams,
+  AddressResponse,
+  ReverseGeocodingResponse,
+} from '../@types/address';
+import type {
+  EntityLookupParams,
+  BankLookupParams,
+  EntityResponse,
+  BankResponse,
+} from '../@types/entity';
 import type { EmailLookupParams, EmailResponse } from '../@types/email';
 import type { NameLookupParams, NameResponse } from '../@types/names';
 import type { ResolveIPParams, ResolveIPResponse } from '../@types/ip';
@@ -13,11 +23,10 @@ export type DaDataProps = {
 class DaData {
   props: DaDataProps;
   constructor(props: DaDataProps) {
-
     this.props = props;
   }
 
-  public async addressLookup (params: AddressLookupParams): Promise<AddressResponse> {
+  public async addressLookup(params: AddressLookupParams): Promise<AddressResponse> {
     const { apiKey } = this.props;
     const { query, language, limit } = params;
     const response = await RequestHelper.request<AddressResponse>({
@@ -62,12 +71,14 @@ class DaData {
         query,
         status,
         type,
-        locations: typeof locations !== 'undefined'
-          ? locations.map((kladrID) => ({ kladr_id: kladrID }))
-          : undefined,
-        locations_boost: typeof locationsBoost !== 'undefined'
-          ? locationsBoost.map((kladrID) => ({ kladr_id: kladrID }))
-          : undefined,
+        locations:
+          typeof locations !== 'undefined'
+            ? locations.map(kladrID => ({ kladr_id: kladrID }))
+            : undefined,
+        locations_boost:
+          typeof locationsBoost !== 'undefined'
+            ? locationsBoost.map(kladrID => ({ kladr_id: kladrID }))
+            : undefined,
         count: limit,
       },
     });
@@ -86,12 +97,14 @@ class DaData {
         query,
         status,
         type,
-        locations: typeof locations !== 'undefined'
-          ? locations.map((kladrID) => ({ kladr_id: kladrID }))
-          : undefined,
-        locations_boost: typeof locationsBoost !== 'undefined'
-          ? locationsBoost.map((kladrID) => ({ kladr_id: kladrID }))
-          : undefined,
+        locations:
+          typeof locations !== 'undefined'
+            ? locations.map(kladrID => ({ kladr_id: kladrID }))
+            : undefined,
+        locations_boost:
+          typeof locationsBoost !== 'undefined'
+            ? locationsBoost.map(kladrID => ({ kladr_id: kladrID }))
+            : undefined,
         count: limit,
       },
     });
@@ -127,7 +140,7 @@ class DaData {
       body: typeof query === 'string' ? [query] : query,
     });
 
-    return response.map((suggestion) => ({
+    return response.map(suggestion => ({
       ...suggestion,
       gender: (suggestion as any).gender === 'М' ? 'MALE' : 'FEMALE',
     }));
@@ -148,7 +161,6 @@ class DaData {
 
     return response;
   }
-
 }
 
 export default DaData;
