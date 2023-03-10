@@ -1,7 +1,7 @@
 {
     "name": "@via-profit/dadata",
     "support": "https://via-profit.ru",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Via Profit DaData API",
     "main": "dist/index.js",
     "engines": {
