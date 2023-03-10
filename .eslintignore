@@ -4,5 +4,6 @@
 /docs/**
 /examples/**
 .yarn
+/node_modules/
 .pnp.js
 *.d.ts

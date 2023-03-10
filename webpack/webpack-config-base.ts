@@ -10,10 +10,6 @@ const webpackBaseConfig: Configuration = {
       },
     ],
   },
-  node: {
-    __filename: true,
-    __dirname: true,
-  },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
   },

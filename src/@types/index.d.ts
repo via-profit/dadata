@@ -14,13 +14,16 @@ export {
   ResolveIPResponse,
 };
 
-export type DaDataProps = {
-  apiKey: string;
-  apiSecret: string;
-};
+export interface DaDataProps {
+  readonly apiKey: string;
+  readonly apiSecret: string;
+}
+
+export interface DaDataInterface {
+  
+}
 
 export default class DaData {
-  props: DaDataProps;
   constructor(props: DaDataProps);
 
   /**

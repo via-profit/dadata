@@ -35,6 +35,13 @@ enum Route {
       res.end();
     };
 
+    const sendHTML = (data: string, statusCode?: number) => {
+      res.statusCode = statusCode || 200;
+      res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+      res.write(data, 'utf8');
+      res.end();
+    };
+
     // Init DaData
     const dadata = new DaData({
       apiKey: process.env.API_KEY,
@@ -95,19 +102,23 @@ enum Route {
         );
 
       default:
-        return sendJSON(
-          {
-            message: 'Route not found',
-            possibleRoutes: Object.entries(Route).map(([_key, route]) => route),
-          },
+        return sendHTML(
+          `<h1>Route not found</h1>
+          <p>Possible Routes:</p>
+          <ul style="list-style:none;margin: 0;padding: 0;">
+            ${Object.entries(Route)
+              .map(([_key, route]) => route)
+              .map(route => `<li><a href="${route}">${route}</a></li>`)
+              .join('\n')}
+          </ul>
+          `,
           404,
         );
     }
   });
 
   server.listen(Number(process.env.SERVER_PORT), process.env.SERVER_HOSTNAME, () => {
-    // eslint-disable-next-line no-console
-    console.log(
+    console.debug(
       `Server started at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`,
     );
   });

@@ -19,10 +19,10 @@ type APIMethod =
   | 'clean/name';
 
 type RequestProps = {
-  apiKey?: string;
-  apiSecret?: string;
-  body: RequestBody;
-  apiMethod: APIMethod;
+  readonly apiKey?: string;
+  readonly apiSecret?: string;
+  readonly body: RequestBody;
+  readonly apiMethod: APIMethod;
 };
 
 class RequestHelper {

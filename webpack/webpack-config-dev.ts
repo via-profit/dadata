@@ -2,6 +2,7 @@ import NodemonPlugin from 'nodemon-webpack-plugin';
 import path from 'path';
 import { Configuration, WebpackPluginInstance } from 'webpack';
 import { merge } from 'webpack-merge';
+import 'webpack-dev-server';
 
 import webpackBaseConfig from './webpack-config-base';
 
@@ -19,11 +20,14 @@ const webpackDevConfig: Configuration = merge(webpackBaseConfig, {
   plugins: [
     new NodemonPlugin({
       exec: process.env.DEBUG
-        ? 'yarn node --inspect-brk=9229 ./build/index.js'
-        : 'yarn node ./build/index.js',
+        ? 'node --inspect-brk=9229 ./build/index.js'
+        : 'node ./build/index.js',
       watch: ['./build'],
     }) as WebpackPluginInstance,
   ],
+  devServer: {
+    open: true,
+  },
 });
 
 export default webpackDevConfig;
