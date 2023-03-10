@@ -27,14 +27,11 @@ import type { AddressResponse, EntityResponse } from '@via-profit/dadata';
 
 ## <a name="installation"></a> Installation
 
-Just install the package use `npm` or `yarn` package manager:
+Just install the package use `npm`
 
 ```bash
 # with npm
-npm install @via-profit/dadata
-
-# with yarn
-yarn add @via-profit/dadata
+$ npm install @via-profit/dadata
 ```
 
 
